@@ -53,9 +53,53 @@ class MyHomePage extends StatelessWidget {
             Text(
               'Hello, World!',
             ),
+            Text(
+              'たむらまゆ'
+            ),
+            FlatButton(child: Text('flat button'), onPressed: () { showBasicDialog(context); },),
+            RaisedButton(child: Text('raised button'), onPressed: () {},),
+            OutlineButton(child: Text('outline button'), onPressed: () {},),
+            AlertDialog(title: Text('ALERT'),)
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+enum _DialogActionType {
+  cancel,
+  ok,
+}
+ 
+void showBasicDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => new AlertDialog(
+          title: new Text("タイトル"),
+          content: new Text("本文"),
+          // ボタンの配置
+          actions: <Widget>[
+            new FlatButton(
+                child: const Text('キャンセル'),
+                onPressed: () {
+                  Navigator.pop(context, _DialogActionType.cancel);
+                }),
+            new FlatButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context, _DialogActionType.ok);
+                })
+          ],
+        ),
+  ).then<void>((value) {
+    // ボタンタップ時の処理
+    switch (value) {
+      case _DialogActionType.cancel:
+        break;
+      case _DialogActionType.ok:
+        break;
+      default:
+    }
+  });
 }
